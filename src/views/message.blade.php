@@ -1,3 +1,4 @@
+@php($params = (session()->has('flash_notification.params') ? session('flash_notification.params') : [] ))
 @if (session()->has('flash_notification.message'))
     @if (session()->has('flash_notification.overlay'))
         @include('flash::modal', [
