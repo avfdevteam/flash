@@ -1,19 +1,15 @@
-<?php
+<?php 
 
 namespace Laracasts\Flash;
 
-class FlashNotifier
-{
+class FlashNotifier {
+
     /**
-     * The session writer.
-     *
      * @var SessionStore
      */
     private $session;
 
     /**
-     * Create a new flash notifier instance.
-     *
      * @param SessionStore $session
      */
     function __construct(SessionStore $session)
@@ -22,88 +18,61 @@ class FlashNotifier
     }
 
     /**
-     * Flash an information message.
-     *
-     * @param  string $message
-     * @return $this
+     * @param $message
+     * @param $title
      */
-    public function info($message)
+    public function info($message, $title = 'Info')
     {
-        $this->message($message, 'info');
-
-        return $this;
+        $this->message($message, 'info', $title);
     }
 
     /**
-     * Flash a success message.
-     *
-     * @param  string $message
-     * @return $this
+     * @param $message
+     * @param $title
      */
-    public function success($message)
+    public function success($message, $title = 'Success')
     {
-        $this->message($message, 'success');
-
-        return $this;
+        $this->message($message, 'success', $title);
     }
 
     /**
-     * Flash an error message.
-     *
-     * @param  string $message
-     * @return $this
+     * @param $message
+     * @param $title
      */
-    public function error($message)
+    public function error($message, $title = 'Error')
     {
-        $this->message($message, 'danger');
-
-        return $this;
+        $this->message($message, 'danger', $title);
     }
 
     /**
-     * Flash a warning message.
-     *
-     * @param  string $message
-     * @return $this
+     * @param $message
+     * @param $title
      */
-    public function warning($message)
+    public function warning($message, $title = 'Warning')
     {
-        $this->message($message, 'warning');
-
-        return $this;
+        $this->message($message, 'warning', $title);
     }
 
     /**
-     * Flash an overlay modal.
-     *
-     * @param  string $message
-     * @param  string $title
-     * @param  string $level
-     * @return $this
+     * @param $message
+     * @param $title
      */
-    public function overlay($message, $title = 'Notice', $level = 'info')
+    public function overlay($message, $title = 'Notice')
     {
-        $this->message($message, $level);
-
+        $this->message($message, 'info', $title);
         $this->session->flash('flash_notification.overlay', true);
         $this->session->flash('flash_notification.title', $title);
-
-        return $this;
     }
 
     /**
-     * Flash a general message.
-     *
-     * @param  string $message
-     * @param  string $level
-     * @return $this
+     * @param $message
+     * @param string $level
      */
-    public function message($message, $level = 'info')
+    public function message($message, $level = 'info', $title = 'Notice')
     {
         $this->session->flash('flash_notification.message', $message);
         $this->session->flash('flash_notification.level', $level);
-
-        return $this;
+        $this->session->flash('flash_notification.title', $title);
     }
 
     /**
